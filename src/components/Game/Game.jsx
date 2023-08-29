@@ -41,7 +41,7 @@ const navigate = useNavigate()
     }).catch((err) => {
       console.log(err)
       console.log(err?.response?.data?.status_message)
-     if( err?.response?.data?.status_message=== 'No game found with that id') navigate('/')
+     if( err?.response?.data?.status_message=== 'No game found with that id') navigate('/NotFound')
     });
   }
   

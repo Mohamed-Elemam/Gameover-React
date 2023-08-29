@@ -15,7 +15,7 @@ export default function Card({ apiData }) {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-
+    
     &:hover {
       transform: scale(1.06);
       cursor: pointer;
@@ -26,7 +26,7 @@ export default function Card({ apiData }) {
     <>
       <div className="row mt-3 g-3 ">
         {apiData.map((game, index) => (
-          <div className="col-xl-3 col-md-4 col-sm-6 d-flex flex-grow-1 " key={index}>
+          <div className="col-xl-3  col-md-4 col-sm-6 d-flex " key={index}>
             <Cards className="  bg-secondary card overflow-hidden  ">
               <Link className="text-decoration-none " to={`/game/${game.id}`}>
                 <img
