@@ -1,0 +1,18 @@
+
+
+.image{
+    width: 45%;
+}
+
+@media (max-width: 575.98px) { 
+    .image{
+        width: 100%;
+    }
+ }
+
+/* @media (max-width: 767.98px) { 
+    
+ } */
+
+
+

@@ -1,15 +1,17 @@
-import React from 'react'
-import Navbar from '../Navbar/Navbar.jsx';
+import React from "react";
+import Navbar from "../Navbar/Navbar.jsx";
+import { Outlet } from "react-router-dom";
 
-import { Outlet } from 'react-router-dom';
+
 export default function Layout() {
   return (
-<>
-<Navbar/>
+    <>
+      <Navbar />
 
-<div className='container my-5'>  
-  <Outlet/>
-  </div>
-</>
-  )
+      <div className="container my-5">
+        <Outlet />
+      </div>
+      
+    </>
+  );
 }

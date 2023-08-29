@@ -1,51 +1,64 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../Navbar/Navbar";
 // import styled from "styled-components";
+import Carousel from 'react-bootstrap/Carousel';
+// import ExampleCarouselImage from 'components/ExampleCarouselImage';
+// import ExampleCarouselImage from 'react-bootstrap/ExampleCarouselImage'; 
+
 
 export default function Game() {
   let { id } = useParams();
 // const [loading, setLoading]=useState(false)  
 // {if (loading  ==true){ <div class="lds-facebook"><div></div><div></div><div></div></div>}
   const [apiData, setApiData] = useState('');
+  const [index, setIndex] = useState(0);
+
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
+  };
+
+const navigate = useNavigate()
+
 // setLoading(true)
-  async function getAll() {
+
+  async function getGameData() {
     const options = {
       method: "GET",
-      url:`https://free-to-play-games-database.p.rapidapi.com/api/game`,
+      url: process.env.REACT_APP_GAME_DETAILS_API_URL,
       params: { id },
       headers: {
-        "X-RapidAPI-Key": "96e963fb03mshdac440060e8930fp19f94ajsn35585d6b1e4d",
-        "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+        'X-RapidAPI-Key': process.env.REACT_APP_API_KEY_URL,
+        'X-RapidAPI-Host': process.env.REACT_APP_API_HOST_URL
       },
-    };
-    const { data } = await axios.request(options);
-
-    setApiData(data);
-    
+    }
+    const response= await axios.request(options).then((response) => {
+    setApiData(response?.data);
+    console.log(response?.data)
+      
+    }).catch((err) => {
+      console.log(err)
+      console.log(err?.response?.data?.status_message)
+     if( err?.response?.data?.status_message=== 'No game found with that id') navigate('/')
+    });
   }
-  console.log(apiData);
-  
-  
   
 useEffect(() => { 
-  getAll()
+  getGameData()
   
 }, [])
 
 
 const Section = styled.section`
 
-background: linear-gradient(rgba(128, 128, 128, 0.6),rgba(128, 128, 128, 0.6)), url(https://www.freetogame.com/g/${id}/background.jpg);
+background: linear-gradient(rgba(128, 128, 128),rgba(128, 128, 128,0.9)),
+ url(https://www.freetogame.com/g/${id}/background.jpg);
 background-size: cover;
 background-position: center;
 background-repeat: no-repeat;
-
 `
-
-
 
   return (
     <>
@@ -88,99 +101,79 @@ background-repeat: no-repeat;
             <h4 className=" my-2">About {apiData.title}</h4>
             <p>{apiData.description} </p>
 
-            {(apiData.minimum_system_requirements) ? 
-             ( <>
+            {/* {(apiData.minimum_system_requirements) ?  */}
+             {/* ( <> */}
              <h4 className=" my-2">Minimum System Requirements</h4>
             <p>
               Graphics:
-              <span> {apiData.minimum_system_requirements.graphics}</span>
+              <span> {apiData?.minimum_system_requirements?.graphics}</span>
             </p>
             <p>
-              Memory:<span> {apiData.minimum_system_requirements.memory}</span>
+              Memory:<span> {apiData?.minimum_system_requirements?.memory}</span>
             </p>
             <p>
-              OS: <span>{apiData.minimum_system_requirements.os}</span>
+              OS: <span>{apiData?.minimum_system_requirements?.os}</span>
             </p>
             <p>
               Processor:
-              <span>{apiData.minimum_system_requirements.processor}</span>
+              <span>{apiData?.minimum_system_requirements?.processor}</span>
             </p>
             <p>
               Storage:
-              <span> {apiData.minimum_system_requirements.storage}</span>
+              <span> {apiData?.minimum_system_requirements?.storage}</span>
             </p>  
             
-             </>
-            ) : ""}
+             {/* </> */}
+            {/* ) : ""} */}
            
 
-           
+           {/* #################slider */}
+           <Carousel activeIndex={index} onSelect={handleSelect}>
+           {apiData?.screenshots?.map((ele , index)=>(
+    <Carousel.Item  key={index}>
+    <img
 
-      
-            {(apiData.screenshots) ? 
-             ( <>
-              <h4 >{apiData.title} Screenshots</h4>
-            
-<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-     <img
-              src={apiData.screenshots[0].image}
-              alt="screenshoot"
-              className="w-100"
-            />
-    </div>
-    <div class="carousel-item">
-     <img
-              src={apiData.screenshots[1].image}
-              alt="screenshoot"
-              className="w-100"
-            />
-    </div>
-    <div class="carousel-item">
-     <img
-              src={apiData.screenshots[2].image}
-              alt="screenshoot"
-              className="w-100"
-            />
-    </div>
-  </div>
-  
-</div>
-
-            
-             </>
-            ) : ""}
-
-
+src={ele.image}
+alt="screenshoot"
+className="w-100"
+/>
+    </Carousel.Item>
+    
+    ))}
+   
+     
+    </Carousel>
+    
+     
+   
 <h4 className=" my-4">Additional Information</h4>
            
        
             <div className="row d-flex justify-content-between">
               <div className="col-md-4 col-sm-6">
-                <p>Title</p>
+                <strong>Title</strong>
                 <p>{apiData.title} </p>
               </div>
               <div className="col-md-4 col-sm-6">
-                <p>Developer</p>
+                <strong>Developer</strong>
                 <p>{apiData.developer} </p>
               </div>
               <div className="col-md-4 col-sm-6">
-                <p>Publisher</p>
+                <strong>Publisher</strong>
                 <p>{apiData.publisher} </p>
               </div>
             </div>
             <div className="row d-flex justify-content-between">
               <div className="col-md-4 col-sm-6">
-                <p>Release Date</p>
+                <strong>Release Date</strong>
                 <p>{apiData.release_date} </p>
               </div>
               <div className="col-md-4 col-sm-6">
-                <p>Genre</p>
+                <strong>Genre</strong>
                 <p>{apiData.genre} </p>
               </div>
               <div className="col-md-4 col-sm-6">
-                <p>paltform</p>
+                <strong>paltform</strong>
                 {apiData.platform === "Windows" ? (
                   <p>
                     <i className="fab fa-windows mx-2"></i> {apiData.platform}

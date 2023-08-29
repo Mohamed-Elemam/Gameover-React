@@ -10,6 +10,7 @@ import CategoryPage from "./components/CategoryPage/CategoryPage.jsx";
 import SortByPage from "./components/SortByPage/SortByPage.jsx";
 import PlatformPage from './components/PlatformPage/PlatformPage';
 // import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import NotFound from './components/NotFound/NotFound';
 
 export default function App() {
   const routes = createBrowserRouter([
@@ -61,14 +62,18 @@ export default function App() {
        
       ],
     },
-    { path: "/:id", element: 
+    { path: "/game/:id", element: 
     // <ProtectedRoute>
     <Game></Game>
     // </ProtectedRoute>
    },
+    { path: "*", element: 
+    <NotFound></NotFound>
+   },
   ]);
   return (
     <>
+    
       <RouterProvider router={routes}></RouterProvider>
     </>
   );

@@ -28,7 +28,7 @@ export default function Card({ apiData }) {
         {apiData.map((game, index) => (
           <div className="col-xl-3 col-md-4 col-sm-6 d-flex flex-grow-1 " key={index}>
             <Cards className="  bg-secondary card overflow-hidden  ">
-              <Link className="text-decoration-none " to={`/${game.id}`}>
+              <Link className="text-decoration-none " to={`/game/${game.id}`}>
                 <img
                   src={game.thumbnail}
                   alt="gameimage"
