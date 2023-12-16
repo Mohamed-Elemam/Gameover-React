@@ -1,33 +1,32 @@
 import React from "react";
 import logo from "../../assets/logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const categories = [
-  "racing","sports","social","shooter","open-world","zombie","fantasy","action-rpg","action",
-  "flight","battle-royale",
+  "racing",
+  "sports",
+  "social",
+  "shooter",
+  "open-world",
+  "zombie",
+  "fantasy",
+  "action-rpg",
+  "action",
+  "flight",
+  "battle-royale",
 ];
 
-const sortBy = [
-  'release-date','popularity','alphabetical','relevance'
-]
-const platforms=['pc','browser']
+const sortBy = ["release-date", "popularity", "alphabetical", "relevance"];
+const platforms = ["pc", "browser"];
 
 export default function Navbar() {
-  const navigate = useNavigate();
-
-  // function logOut(){
-  //   localStorage.removeItem("userToken")
-  //   navigate('login')
-
-  // }
-
   return (
     <>
       <nav className="navbar navbar-expand-lg  bg-secondary  text-capitalize">
         <div className="container">
           <Link className="navbar-brand" to={"/home"}>
             <img src={logo} style={{ width: "50px" }} alt="logo" />
-            <span className="text-dark mx-2">GameOver</span>
+            <span className="text-white fw-bold mx-2">GameOver</span>
           </Link>
           <button
             className="navbar-toggler"
@@ -41,8 +40,10 @@ export default function Navbar() {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            {/* { localStorage.getItem('userToken')? */}
+          <div
+            className="collapse navbar-collapse fw-bold "
+            id="navbarSupportedContent"
+          >
             <>
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item active">
@@ -66,12 +67,15 @@ export default function Navbar() {
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdown"
                   >
-                     {platforms.map((ele, index) => (
-                      <Link className="dropdown-item" key={index} to={`/platform/${ele}`}>
+                    {platforms.map((ele, index) => (
+                      <Link
+                        className="dropdown-item"
+                        key={index}
+                        to={`/platform/${ele}`}
+                      >
                         {ele}
                       </Link>
                     ))}
-                 
                   </div>
                 </li>
 
@@ -90,12 +94,15 @@ export default function Navbar() {
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdown"
                   >
-                      {sortBy.map((ele, index) => (
-                      <Link className="dropdown-item" key={index} to={`/sortBy/${ele}`}>
+                    {sortBy.map((ele, index) => (
+                      <Link
+                        className="dropdown-item"
+                        key={index}
+                        to={`/sortBy/${ele}`}
+                      >
                         {ele}
                       </Link>
                     ))}
-                 
                   </div>
                 </li>
                 <li className="nav-item dropdown">
@@ -114,7 +121,11 @@ export default function Navbar() {
                     aria-labelledby="navbarDropdown"
                   >
                     {categories.map((ele, index) => (
-                      <Link className="dropdown-item" key={index} to={`/Categories/${ele}`}>
+                      <Link
+                        className="dropdown-item"
+                        key={index}
+                        to={`/Categories/${ele}`}
+                      >
                         {ele}
                       </Link>
                     ))}
@@ -122,22 +133,6 @@ export default function Navbar() {
                 </li>
               </ul>
             </>
-            {/* :""} */}
-
-            <div className="ms-auto">
-              {/* {localStorage.getItem('userToken')? <Link className="btn btn-outline-dark mx-2" onClick={logOut}>
-                Logout
-              </Link>:  (<>
-                <Link className="text-decoration-none text-dark mx-2" to={"/"}>
-                Login
-              </Link>
-              <Link className="btn btn-outline-dark mx-2" to={"/signup"}>
-                Register
-              </Link>
-
-
-              </>)} */}
-            </div>
           </div>
         </div>
       </nav>
