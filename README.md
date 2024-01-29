@@ -1,9 +1,6 @@
-Certainly! Here's a basic template for your GitHub README.md file:
 
 ```markdown
-# React Game Browser
-
-![React Logo](https://www.example.com/your-logo.png)
+# React Game Over
 
 ## Description
 
