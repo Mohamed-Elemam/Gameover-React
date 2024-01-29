@@ -1,10 +1,8 @@
-
-```markdown
 # React Game Over
 
 ## Description
 
-This is a React example starter project for a game browser website. Users can explore games based on different categories.
+This is a React project for a game browser website. Users can explore games based on different categories.
 
 ## Features
 
